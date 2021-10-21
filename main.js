@@ -12,20 +12,23 @@ class AllCars {
     return `Wheels number:${this.wheelNum}, Smk: ${this.smk} , Color:${this.color}`;
   }
 
-  static largerSmk = (array) => {
+  static largerSmk = (carsArray) => {
     let maxSmk = 0;
     let objectSmk = null;
-    for (let i = 0; i < array.length; i++) {
-      if (array[i].smk > maxSmk) {
-        maxSmk = array[i].smk;
-        objectSmk = array[i];
+    for (const singleCar of carsArray) {
+      if (singleCar.smk > maxSmk) {
+        maxSmk = singleCar.smk;
+        objectSmk = singleCar;
+        
       }
-    }
+    } 
+    
     return objectSmk;
   };
 }
 
 class Track extends AllCars {
+  name;
   constructor(wheelNum, smk, color) {
     super(wheelNum, smk, color);
     this.name = "Track";
@@ -42,6 +45,7 @@ class Track extends AllCars {
 }
 
 class Bus extends AllCars {
+  name;
   constructor(wheelNum, smk, color) {
     super(wheelNum, smk, color);
     this.name = "Bus";
@@ -52,6 +56,7 @@ class Bus extends AllCars {
 }
 
 class Privet extends AllCars {
+  name;
   constructor(wheelNum, smk, color) {
     super(wheelNum, smk, color);
     this.name = "Privet";
@@ -62,26 +67,45 @@ class Privet extends AllCars {
 }
 
 let TrackOne = new Track(4, 2000, "Green");
-let TrackTwo = new Track(9, 7000, "Blue");
+let TrackTwo = new Track(9, 10000, "Blue");
 let TrackThree = new Track(1, 1000, "Yellow");
 
-//   console.log(AllCars.largerSmk([TrackOne, TrackTwo, TrackThree]));
+let privetOne = new Privet(50, 2000, "Grey");
+let BusOne = new Bus(698, 800000, "Pink");
+
+// console.log(privetOne,BusOne);
+
+// console.log(BusOne.fullInfo());;
+
+
+
+
+
+  console.log(AllCars.largerSmk([TrackOne, TrackTwo, TrackThree]));
 
 btnSendID.onclick = () => {
   let selectValue = selectID.options[selectID.selectedIndex].value;
   switch (selectValue) {
       case "Tracks":
       let TrackTypeOne = new Track(wheelNumID.value, SMKID.value, ColorID.value);
-      console.log(TrackTypeOne);
+      for (const key in TrackTypeOne) {
+        firstRTtable.innerHTML += `<td>${key} : ${TrackTypeOne[key]} ,</td>`;
+      }
       break
     case "Buses":
       let BusesTypeOne = new Bus(wheelNumID.value, SMKID.value, ColorID.value);
-      console.log(BusesTypeOne);
+      for (const key in BusesTypeOne) {
+        secondRTtable.innerHTML += `<td>${key} : ${BusesTypeOne[key]} ,</td>`;
+      }
       break
       case "Privet":
       let PrivetTypeOne = new Privet(wheelNumID.value, SMKID.value, ColorID.value);
-      console.log(PrivetTypeOne);
+      for (const key in PrivetTypeOne) {
+        thirdRTtable.innerHTML += `<td>${key} : ${PrivetTypeOne[key]} ,</td>`;
+      }
       break
+      default:
+        alert("there is no such car.")
   }
 };
 
